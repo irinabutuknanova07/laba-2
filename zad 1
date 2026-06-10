@@ -1,0 +1,44 @@
+import math
+def solve_quadratic_equation(a, b, c):
+    print(f"Решаем уравнение: {a}x² + {b}x + {c} = 0")
+    print("-" * 50)
+    D = b ** 2 - 4 * a * c
+    print(f"Дискриминант D = {b}² - 4*{a}*{c} = {D}")
+    if a == 0:
+        if b == 0:
+            print("Уравнение не имеет смысла (a = 0, b = 0)")
+            return None
+        else:
+            x = -c / b
+            print(f"Это линейное уравнение: {b}x + {c} = 0")
+            print(f"Корень: x = {x:.2f}")
+            return x
+    if D < 0:
+        print("Уравнение не имеет действительных корней (D < 0)")
+        return None
+    elif D == 0:
+        x = -b / (2 * a)
+        print(f"Уравнение имеет один корень: x = {x:.1f}")
+        print("\nПроверка по теореме Виета:")
+        print(f"Для одного корня x1 = x2 = {x:.1f}")
+        print(f"x1 + x2 = {2 * x:.1f} (должно быть -b/a = {-b / a:.1f})")
+        print(f"x1 * x2 = {x ** 2:.1f} (должно быть c/a = {c / a:.1f})")
+        return x
+    else:
+        x1 = (-b + math.sqrt(D)) / (2 * a)
+        x2 = (-b - math.sqrt(D)) / (2 * a)
+        if x1 > x2:
+            x1, x2 = x2, x1
+        print(f"Корни уравнения: x1 = {x1:.1f}, x2 = {x2:.1f}")
+        print("\nПроверка по теореме Виета:")
+        print(f"x1 + x2 = {x1 + x2:.1f} (должно быть -b/a = {-b / a:.1f})")
+        print(f"x1 * x2 = {x1 * x2:.1f} (должно быть c/a = {c / a:.1f})")
+        if abs((x1 + x2) - (-b / a)) < 0.0001 and abs((x1 * x2) - (c / a)) < 0.0001:
+            print("✓ Проверка пройдена успешно!")
+        else:
+            print("✗ Проверка не пройдена!")
+        return x1, x2
+# Вариант 1 по заданию: 2x² - 7x + 3 = 0
+print("Вариант 1 (по заданию):")
+solve_quadratic_equation(2, -7, 3)
+print("\n" + "=" * 50 + "\n")
